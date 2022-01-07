@@ -1,0 +1,44 @@
+---
+title: "recoleccion_solidos_2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r import, warning=FALSE, message=FALSE}
+# Paquete para manipulación de datos
+library(dplyr)
+
+# Paquete para manejo de datos vectoriales
+library(sf)
+
+# Paquete para manejo de tablas
+library(DT)
+library(tidyverse)
+
+# Paquetes para graficación
+library(ggplot2)
+library(plotly)
+```
+
+
+
+
+```{r cargadatos}
+
+# Lectura de un archivo CSV con datos de Recolección de residuos solidos 2019
+presupuesto <-
+  st_read(
+    "/vsicurl/https://raw.githubusercontent.com/MontserratJB/Proyecto-2021/master/Pres_part.csv",
+    options = c(
+      "X_POSSIBLE_NAMES=decimalLongitude",
+      "Y_POSSIBLE_NAMES=decimalLatitude"
+    ),
+    quiet = TRUE
+  )
+
+```
+
+## Recolección de residuos solidos Año 2019
