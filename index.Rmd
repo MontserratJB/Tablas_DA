@@ -7,7 +7,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r import, warning=FALSE, message=FALSE}
+```{r import, warning=FALSE, message=FALSE, include=FALSE}
 # Paquete para manipulación de datos
 library(dplyr)
 
@@ -16,6 +16,7 @@ library(sf)
 
 # Paquete para manejo de tablas
 library(DT)
+library(st)
 library(tidyverse)
 
 # Paquetes para graficación
@@ -26,19 +27,26 @@ library(plotly)
 
 
 
-```{r cargadatos}
+```{r cargadatos, include=FALSE}
 
 # Lectura de un archivo CSV con datos de Recolección de residuos solidos 2019
-presupuesto <-
+tabla <-
   st_read(
-    "/vsicurl/https://raw.githubusercontent.com/MontserratJB/Proyecto-2021/master/Pres_part.csv",
-    options = c(
-      "X_POSSIBLE_NAMES=decimalLongitude",
-      "Y_POSSIBLE_NAMES=decimalLatitude"
-    ),
+    "/vsicurl/https://raw.githubusercontent.com/MontserratJB/Tablas_DA/master/recoleccion_solidos_2019.csv"
+    ,
     quiet = TRUE
   )
-
 ```
 
 ## Recolección de residuos solidos Año 2019
+
+```{r tabla}
+#Tabla
+tabla %>%
+  select(RUTA, LUNES, MARTES, MIERCOLES, JUEVES, VIERNES, TOTAL) %>%
+datatable( tabla, options = list(
+  language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json')
+))
+
+```
+
